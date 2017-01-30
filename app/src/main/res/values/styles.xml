@@ -8,4 +8,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <declare-styleable name="CornerSlider">
+        <attr name="anchor_position" format="enum">
+            <enum name="upper_left" value="0"/>
+            <enum name="upper_right" value="1"/>
+            <enum name="lower_left" value="2"/>
+            <enum name="lower_right" value="3"/>
+        </attr>
+        <attr name="type" format="enum">
+            <enum name="spring" value="0"/>
+            <enum name="slider" value="1"/>
+        </attr>
+    </declare-styleable>
+
 </resources>

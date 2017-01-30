@@ -2,10 +2,12 @@ package com.intuit.linesexperiment.graph;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.intuit.linesexperiment.R;
+import com.intuit.linesexperiment.controls.CornerSlider;
 import com.intuit.linesexperiment.util.ConvertUtil;
 
 /**
@@ -14,6 +16,11 @@ import com.intuit.linesexperiment.util.ConvertUtil;
 public class GraphActivity extends Activity implements EditDialog.ChangeListener {
     private GraphView gv;
     private Button cycleButton;
+
+    private CornerSlider cornerUL;
+    private CornerSlider cornerUR;
+    private CornerSlider cornerLL;
+    private CornerSlider cornerLR;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +48,41 @@ public class GraphActivity extends Activity implements EditDialog.ChangeListener
         findViewById(R.id.editButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                com.intuit.linesexperiment.spirograph.EditDialog dialog = new com.intuit.linesexperiment.spirograph.EditDialog();
+                EditDialog dialog = new EditDialog();
                 dialog.setArguments(gv.getArgs());
                 dialog.show(getFragmentManager(), "edit_dialog");
+            }
+        });
+
+        cornerUL = (CornerSlider) findViewById(R.id.cornerUL);
+        cornerUR = (CornerSlider) findViewById(R.id.cornerUR);
+        cornerLL = (CornerSlider) findViewById(R.id.cornerLL);
+        cornerLR = (CornerSlider) findViewById(R.id.cornerLR);
+
+        CornerSlider.Listener listener = new CornerSlider.Listener() {
+            @Override
+            public void onUpdate(CornerSlider slider, float progress) {
+                Log.d("Graph", "slider(" + slider.getId() + ") = " + progress);
+            }
+        };
+
+        cornerUL.setListener(listener);
+        cornerUR.setListener(new CornerSlider.Listener() {
+            @Override
+            public void onUpdate(CornerSlider slider, float progress) {
+                gv.setDivisions(progress);
+            }
+        });
+        cornerLL.setListener(new CornerSlider.Listener() {
+            @Override
+            public void onUpdate(CornerSlider slider, float progress) {
+                gv.setAnimationSpeed(progress);
+            }
+        });
+        cornerLR.setListener(new CornerSlider.Listener() {
+            @Override
+            public void onUpdate(CornerSlider slider, float progress) {
+                gv.setThickness(progress);
             }
         });
     }

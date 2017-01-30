@@ -66,6 +66,8 @@ public class GraphView extends View {
         super.onDraw(canvas);
 
         graphs[graphIdx].draw(canvas);
+
+        postInvalidate();
     }
 
     @Override
@@ -132,5 +134,23 @@ public class GraphView extends View {
         }
 
         invalidate();
+    }
+
+    public void setThickness(float percentage) {
+        for (Graph graph : graphs) {
+            graph.setThickness(10.0f * percentage);
+        }
+    }
+
+    public void setAnimationSpeed(float progress) {
+        for (Graph graph : graphs) {
+            graph.setAnimationSpeed(progress);
+        }
+    }
+
+    public void setDivisions(float progress) {
+        for (Graph graph : graphs) {
+            graph.setDivisions(progress);
+        }
     }
 }

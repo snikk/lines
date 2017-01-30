@@ -52,7 +52,7 @@ public class EditDialog extends DialogFragment implements DialogInterface.OnClic
             divisionsText.setText(String.format(Locale.getDefault(), "%d", divisions));
         if (per != -1) {
             percentage.setProgress((int) ((float) percentage.getMax() * per));
-            percentageLabel.setText(String.format(Locale.getDefault(), "%.1f", ((float) percentage.getProgress() / (float) percentage.getMax()) * 100));
+            percentageLabel.setText(String.format(Locale.getDefault(), "%.1f", ((float) percentage.getProgress() / (float) percentage.getMax()) * 10));
         }
 
         return builder.show();
